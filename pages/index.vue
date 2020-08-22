@@ -1,39 +1,34 @@
 <template>
-  <div
-    class="container px-4 sm:px-12 pt-16 pb-12 mx-auto flex items-center md:min-h-screen"
-    style="max-width:600px"
-  >
-    <div class="w-full">
-      <Logo></Logo>
-      <LoginScreenWelcome/>
-      <FormInput
-        v-model.trim.lazy="$v.email.$model"
-        :placeholder="$t('email')"
-        autocomplete="email"
-        type="email"
-        class="mb-4"
-        :class="{'border-red-500 focus:border-red-500': (!$v.email.email ||! $v.email.required && submitStatus != null)}"/>
-      <FormInput
-        :class="{'border-red-500 focus:border-red-500': !$v.password.required && submitStatus != null}"
-        :placeholder="$t('password')"
-        autocomplete="password"
-        class="mb-16"
-        type="password"
-        v-model.lazy="$v.password.$model"
-      />
-      <div class="flex flex-col">
-        <button
-          :class="submitStatus === 'PENDING' ? 'bg-primary-400' : 'bg-primary-500'"
-          :disabled="submitStatus === 'PENDING'"
-          @click="submit"
-          class="py-3 rounded-lg px-12 ml-auto text-white text-2xl mb-4 font-semibold focus:outline-none"
-        >
-          {{ $t('sign_in') }}
-        </button>
-        <nuxt-link class="ml-auto text-gray-700" to="/auth/forgot-password">
-          {{ $t('forgot_password_btn') }}
-        </nuxt-link>
-      </div>
+  <div class="w-full">
+    <Logo></Logo>
+    <LoginScreenWelcome class="mb-10" :title="$t('loginscreen_welcome')" :sub-title="$t('loginscreen_sign_in_to_continue')" />
+    <FormInput
+      :class="{'border-red-500 focus:border-red-500': (!$v.email.email ||! $v.email.required && submitStatus != null)}"
+      :placeholder="$t('email')"
+      autocomplete="email"
+      class="mb-4"
+      type="email"
+      v-model.trim.lazy="$v.email.$model"/>
+    <FormInput
+      :class="{'border-red-500 focus:border-red-500': !$v.password.required && submitStatus != null}"
+      :placeholder="$t('password')"
+      autocomplete="password"
+      class="mb-16"
+      type="password"
+      v-model.lazy="$v.password.$model"
+    />
+    <div class="flex flex-col">
+      <button
+        :class="submitStatus === 'PENDING' ? 'bg-primary-400' : 'bg-primary-500'"
+        :disabled="submitStatus === 'PENDING'"
+        @click="submit"
+        class="py-3 rounded-lg px-12 ml-auto text-white text-2xl mb-4 font-semibold focus:outline-none"
+      >
+        {{ $t('sign_in') }}
+      </button>
+      <nuxt-link class="ml-auto text-gray-700" to="/auth/forgot-password">
+        {{ $t('forgot_password_btn') }}
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -65,16 +60,27 @@ export default {
   },
   methods: {
     submit() {
-      console.log("suuubmit");
       this.$v.$touch();
       if (this.$v.$invalid) {
-        console.log(this.$v);
         this.submitStatus = 'ERROR'
       } else {
         this.submitStatus = 'PENDING'
-        setTimeout(() => {
+        this.$axios.post('/login', {
+          "email": this.email,
+          "password": this.password,
+          "login_challenge": this.$route.query.login_challenge
+        }).then((res) => {
+          this.$toast.clear()
+          window.location = res['data']['data']['redirect_to'];
+          this.$toast.success('Successfully authenticated')
           this.submitStatus = 'OK'
-        }, 500)
+        }).catch((err) => {
+            console.log(err.response);
+            this.$toast.clear()
+            this.$toast.error(err.response.data.message)
+            this.submitStatus = ''
+          }
+        );
       }
     }
   }
