@@ -1,20 +1,27 @@
+<!--
+  - Stride Authentication Backend
+  -
+  - @copyright	Copyright (c) 2020 Martin Becker (https://martin-becker.ovh)
+  - @license		GNU AGPLv3 (GNU Affero General Public License v3.0)
+  - @link		https://stride.thiritin.com
+  -->
+
 <template>
   <div>
-    <Nuxt />
+    <Nuxt/>
   </div>
 </template>
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: 'Source Sans Pro',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

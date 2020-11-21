@@ -1,7 +1,16 @@
+<!--
+  - Stride Authentication Backend
+  -
+  - @copyright	Copyright (c) 2020 Martin Becker (https://martin-becker.ovh)
+  - @license		GNU AGPLv3 (GNU Affero General Public License v3.0)
+  - @link		https://stride.thiritin.com
+  -->
+
 <template>
   <div class="w-full">
     <Logo></Logo>
-    <LoginScreenWelcome class="mb-10" :title="$t('loginscreen_welcome')" :sub-title="$t('loginscreen_sign_in_to_continue')" />
+    <LoginScreenWelcome :sub-title="$t('loginscreen_sign_in_to_continue')" :title="$t('loginscreen_welcome')"
+                        class="mb-10"/>
     <FormInput
       :class="{'border-red-500 focus:border-red-500': (!$v.email.email ||! $v.email.required && submitStatus != null)}"
       :placeholder="$t('email')"
@@ -65,7 +74,7 @@ export default {
         this.submitStatus = 'ERROR'
       } else {
         this.submitStatus = 'PENDING'
-        this.$axios.post('/login', {
+        this.$axios.post('/auth/login', {
           "email": this.email,
           "password": this.password,
           "login_challenge": this.$route.query.login_challenge
