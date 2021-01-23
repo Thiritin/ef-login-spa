@@ -1,11 +1,3 @@
-<!--
-  - Stride Authentication Backend
-  -
-  - @copyright	Copyright (c) 2020 Martin Becker (https://martin-becker.ovh)
-  - @license		GNU AGPLv3 (GNU Affero General Public License v3.0)
-  - @link		https://stride.thiritin.com
-  -->
-
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" width="69.103" height="69.103" viewBox="0 0 69.103 69.103">
     <g id="Gruppe_5" data-name="Gruppe 5" transform="translate(-2317.36 1065.784)">
