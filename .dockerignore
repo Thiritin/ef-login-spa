@@ -2,7 +2,6 @@ node_modules/
 dist/
 .nuxt
 .editorconfig
-docker-compose.yml
 Dockerfile
 README.md
 .idea

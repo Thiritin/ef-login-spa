@@ -30,6 +30,9 @@ module.exports = {
       }
     }
   },
+  future: {
+    removeDeprecatedGapUtilities: true,
+  },
   variants: {
     backgroundColor: ['responsive', 'hover', 'focus'],
     borderColor: ['responsive', 'hover', 'focus'],

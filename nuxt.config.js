@@ -61,7 +61,6 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
     '@nuxtjs/toast'
   ],
   /**
@@ -84,5 +83,14 @@ export default {
     webpack: {
       poll: true
     }
+  },
+  loading: {
+    color: '#2F6E6D',
+    height: '5px'
+  },
+  server: {
+    port: 3000,
+    host: '0.0.0.0',
+    timing: false
   }
 }
